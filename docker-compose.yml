@@ -1,0 +1,50 @@
+# Variables are in .env file
+version: '3'
+services:
+  broker:
+    build:
+      context: ./docker/broker
+      dockerfile: Dockerfile
+    # container_name: mqtt-broker
+    ports:
+      - 1883:1883
+    # command: /bin/sh  # overrides Dockerfile CMD
+    stdin_open: true    # like: docker run -i
+    tty: true           # like: docker run -t
+    volumes:
+      - type: bind
+        source: ./volumes/scripts/
+        target: /scripts
+        read_only: true
+      - ./volumes/mqtt/mqtt_data:/mosquitto/data
+      - ./volumes/mqtt/mqtt_log:/mosquitto/log
+      - ./volumes/mqtt/mqtt_config:/mosquitto/config
+    networks:
+      mqtt_network:
+        ipv4_address: ${BROKER_IP}
+  client:
+    build:
+      context: ./docker/client
+      dockerfile: Dockerfile
+      args:
+        MQTT_BROKER_IP: ${BROKER_IP}
+    # command: /bin/sh  # overrides Dockerfile CMD
+    stdin_open: true    # like: docker run -i
+    tty: true           # like: docker run -t
+    volumes:
+      - type: bind
+        source: ./volumes/scripts/
+        target: /scripts
+        read_only: true
+    networks:
+      mqtt_network:
+        ipv4_address: ${CLIENT_IP}
+# Shared network
+networks:
+  mqtt_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: ${SUBNET}
+
+

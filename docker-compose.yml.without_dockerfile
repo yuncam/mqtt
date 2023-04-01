@@ -1,0 +1,33 @@
+version: '3'
+services:
+  broker:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+    command: /bin/sh
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - ./volumes/scripts/publisher:/home/scripts
+      - ./volumes/mqtt/mqtt_data:/mosquitto/data
+      - ./volumes/mqtt/mqtt_log:/mosquitto/log
+      - ./volumes/mqtt/mqtt_config:/mosquitto/config
+    networks:
+      mqtt_network:
+        ipv4_address: 192.0.1.10
+  client:
+    image: alpine
+    command: /bin/sh
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - ./volumes/scripts/subscriber:/home/scripts
+    networks:
+      mqtt_network:
+        ipv4_address: 192.0.1.20
+networks:
+  mqtt_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.0.1.0/24"
