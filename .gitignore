@@ -2,6 +2,10 @@
 *.dev*
 *.bak*
 
+### mosquitto ###
+mosquitto.db
+mosquitto.log
+
 ### Linux ###
 *~
 
