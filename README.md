@@ -167,8 +167,6 @@ using the example of two apache-php containers and the network 'myNetwork'.
 
 ---
 
-<br>
-
 ## Author
 [yuncam](https://github.com/yuncam)
 
