@@ -1,9 +1,3 @@
----
-[//]: # title: MQTT Broker and Client communication
-[//]: # author: yuncam
-[//]: # date: 01.04.2023
----
-
 # MQTT Broker and Client communication
 ![mockup](img/mockup.png)
 This is a rather simple setup of a MQTT broker and a client.
