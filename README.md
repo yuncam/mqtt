@@ -1,7 +1,7 @@
 ---
-title: MQTT Broker and Client communication
-author: yuncam
-date: 01.04.2023
+[//]: # title: MQTT Broker and Client communication
+[//]: # author: yuncam
+[//]: # date: 01.04.2023
 ---
 
 # MQTT Broker and Client communication
