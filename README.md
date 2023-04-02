@@ -38,8 +38,6 @@ Forward to these topics if you just want to ...
 
 ---
 
-<br>
-
 ## __Starting the docker container manually__
 ### Run mqtt-broker MQTT container:
 ```
@@ -127,8 +125,6 @@ using the example of two apache-php containers and the network 'myNetwork'.
 <br>
 
 ---
-
-<br>
 
 ## __Docker commands__
 ### Compose and start the containers:
