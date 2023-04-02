@@ -1,3 +1,50 @@
+---
+title: MQTT Broker and Client communication
+author: yuncam
+date: today
+---
+
+# MQTT Broker and Client communication
+This is a rather simple setup of a MQTT broker and a client.
+It serves as a starting point for a uni project.  
+The services are created and managed via docker compose.  
+This readme explains rather unnecessary steps quite exentsively for further studies and also as a note to myself.
+
+Forward to these topics if you just want to ...
+- [compose and start the containers](#docker-commands)
+- [use the scripts](#using-the-scripts)
+
+<br>
+
+## __Contents__
+- [Project Overview](#project-overview)
+- [Starting the docker container manually](#starting-the-docker-container-manually)
+- [After container is started](#after-container-is-started)
+- [Create shared network between containers](#create-shared-network-between-containers)
+- [Docker commands](#docker-commands)
+- [Using the scripts](#using-the-scripts)
+- [Author](#author)
+
+
+<br>
+
+## __Project overview__
+- ```/docker/``` : Contains the Dockerfiles for MQTT broker and client
+- ```/volumes/``` : Contains the docker volumes which are mounted into the containers
+    - ```/mqtt/mqtt_config/``` : Contains the MQTT config file
+    - ```/mqtt/mqtt_data/``` : Contains the MQTT database
+    - ```/mqtt/mqtt_log/``` : Contains the MQTT logs
+    - ```/scripts/publisher/``` : Contains the publisher script for the broker
+    - ```/scripts/subscriber/``` : Contains the subscriber script for the client
+- ```.env``` : Contains Variables used in docker-compose.yml
+- ```docker-compose.yml``` : The docker compose file
+
+<br>
+
+---
+
+<br>
+
 ## __Starting the docker container manually__
 ### Run mqtt-broker MQTT container:
 ```
@@ -25,7 +72,7 @@ docker run -ti --name mqtt-client01 --hostname=c2b6b137cfa2 --env=PATH=/usr/loca
 docker run -ti --name mqtt-client01 --hostname=c2b6b137cfa2 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --volume=mqtt_client_01:/home/mqtt_client_01/ --runtime=runc -d ubuntu:latest
 ```
 
-<br><br>
+<br>
 
 ## __After container is started__
 ### MQTT Broker (Alpine) Dependencies/Commands:
@@ -47,15 +94,17 @@ pip3 install paho-mqtt
 apt install python3
 apt install python3-pip
 python3 -m pip install paho-mqtt
-[opt] apt install mosquitto
-[opt] apt install systemctl
-[opt] systemctl start mosquitto
-[opt] apt install iputils
-[opt] apt install iproute2
-[opt] apt install nano
+
+Optional:
+apt install mosquitto
+apt install systemctl
+systemctl start mosquitto
+apt install iputils
+apt install iproute2
+apt install nano
 ```
 
-<br><br>
+<br>
 
 ## __Create shared network between containers__
 This short tutorial shows how to create a shared network in docker so the containers can communicate with each other
@@ -63,34 +112,28 @@ using the example of two apache-php containers and the network 'myNetwork'.
 (Needles to say) you have to change the parameters according to your project.
 
 ### Create two containers:
-```
-docker run -d --name web1  -p 8001:80 eboraas/apache-php
-docker run -d --name web2  -p 8002:80 eboraas/apache-php
-```
+```docker run -d --name web1  -p 8001:80 eboraas/apache-php```
+```docker run -d --name web2  -p 8002:80 eboraas/apache-php```
 > Important note: it is very important to explicitly specify a name with --name for your containers otherwise I’ve noticed that it would not work with the random names that Docker assigns to your containers.
 
 ### Then create a new network:
-```
-docker network create myNetwork
-```
+```docker network create myNetwork```
 
 ### After that connect your containers to the network:
-```
-docker network connect myNetwork web1
-docker network connect myNetwork web2 
-```
+```docker network connect myNetwork web1```  
+```docker network connect myNetwork web2```
 
 ### Check if your containers are part of the new network:
-```
-docker network inspect myNetwork
-```
+```docker network inspect myNetwork```
 
 ### Then test the connection:
-```
-docker exec -ti web1 ping web2
-```
+```docker exec -ti web1 ping web2```
 
-<br><br>
+<br>
+
+---
+
+<br>
 
 ## __Docker commands__
 ### Compose and start the containers:
@@ -108,7 +151,7 @@ docker exec -ti web1 ping web2
 ### Remove unused builder resources and dangling builder cache:
 ```docker builder prune```
 
-<br><br>
+<br>
 
 ## __Using the scripts__
 - First you want to [compose the docker containers](#compose-and-start-the-containers)
@@ -121,5 +164,14 @@ docker exec -ti web1 ping web2
 #### On client:
 ```python3 /home/scripts/subscriber/subscriber.py```
 > The broker IP must be changed in /home/scripts/subscriber/config.py accordingly!
+
+<br>
+
+---
+
+<br>
+
+## Author
+[yuncam](https://github.com/yuncam)
 
 
