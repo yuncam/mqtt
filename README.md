@@ -1,11 +1,11 @@
 # MQTT Broker and Client communication
 ![mockup](img/mockup.png)
-This is a rather simple setup of a MQTT broker and a client.
+This is a rather simple setup of a MQTT broker and a client.  
 It serves as a starting point for a uni project.  
 The services are created and managed via docker compose.  
-This readme explains rather unnecessary steps quite exentsively for further studies and also as a note to myself.
+This readme explains rather unnecessary steps quite exentsively for further studies and also as a note to myself.  
 
-Forward to these topics if you just want to ...
+Forward to these topics if you just want to ...  
 - [compose and start the containers](#docker-commands)
 - [use the scripts](#using-the-scripts)
 
