@@ -5,9 +5,12 @@ import config as conf
 
 # This is the Subscriber
 
+sub_topic = "topic/test"
+
 def on_connect(client, userdata, flags, rc):
   print("Connected with result code "+str(rc))
-  client.subscribe("topic/test")
+  client.subscribe(sub_topic)
+  print(f"Listening to topic: {sub_topic} @ {conf.broker_ip}")
 
 def on_message(client, userdata, msg):
 #   if msg.payload.decode() == "Hello world!":
