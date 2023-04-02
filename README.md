@@ -20,7 +20,6 @@ Forward to these topics if you just want to ...
 - [Using the scripts](#using-the-scripts)
 - [Author](#author)
 
-
 <br>
 
 ## __Project overview__
