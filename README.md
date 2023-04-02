@@ -139,8 +139,11 @@ using the example of two apache-php containers and the network 'myNetwork'.
 ### Compose and start the containers:
 ```docker-compose up -d```  
 
-### Stop and remove the containers:
+### Stop and remove all containers only:
 ```docker-compose down```  
+
+### Stop and remove all containers and images (used by any service in the compose file):
+```docker-compose down --rmi all```
 
 ### Access a Docker container shell:
 ```docker exec -it <CONTAINER_NAME_OR_ID> /bin/sh```
